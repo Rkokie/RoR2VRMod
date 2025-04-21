@@ -43,6 +43,7 @@ namespace VRMod
         internal static LIV.SDK.Unity.LIV liv { get; private set; }
 
         private static Transform cameraOffset;
+        private static Camera camera;
 
         internal static void Init()
         {
@@ -149,6 +150,8 @@ namespace VRMod
 
             if (self.hud == null && Utils.localCameraRig && Utils.localCameraRig.hud)
                 self.hud = Utils.localCameraRig.hud;
+            
+            camera = self.GetComponent<Camera>();
         }
 
         private static void RemoveRecoilAndCameraPitch(ILContext il)
@@ -290,7 +293,7 @@ namespace VRMod
 
             c.EmitDelegate<Func<ThreeEyedGames.DecaliciousRenderer, bool>>((self) =>
             {
-                if (self._camera.stereoTargetEye == StereoTargetEyeMask.None) return true;
+                if (camera.stereoTargetEye == StereoTargetEyeMask.None) return true;
 
                 bool result = lastFrameCount == Time.renderedFrameCount;
                 if (result)
