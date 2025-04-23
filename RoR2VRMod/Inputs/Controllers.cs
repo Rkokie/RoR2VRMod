@@ -1,16 +1,12 @@
-﻿using HarmonyLib;
-using Mono.Cecil.Cil;
+﻿using Mono.Cecil.Cil;
 using MonoMod.Cil;
-using MonoMod.RuntimeDetour;
 using Rewired;
-using Rewired.Data;
 using RoR2;
 using RoR2.GamepadVibration;
 using RoR2.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using UnityEngine;
 using UnityEngine.XR;
 using Valve.VR;
@@ -84,32 +80,24 @@ namespace VRMod
 
             float motorValue = context.CalcCamDisplacementMagnitude() * context.userVibrationScale;
 
-            if (ModConfig.InitialOculusModeValue)
+            InputDevice leftHand = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
+            InputDevice rightHand = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
+
+            HapticCapabilities capabilities;
+
+            if (leftHand.TryGetHapticCapabilities(out capabilities))
             {
-                InputDevice leftHand = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
-                InputDevice rightHand = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
-
-                HapticCapabilities capabilities;
-
-                if (leftHand.TryGetHapticCapabilities(out capabilities))
+                if (capabilities.supportsImpulse)
                 {
-                    if (capabilities.supportsImpulse)
-                    {
-                        leftHand.SendHapticImpulse(0, motorValue, Time.deltaTime);
-                    }
-                }
-                if (rightHand.TryGetHapticCapabilities(out capabilities))
-                {
-                    if (capabilities.supportsImpulse)
-                    {
-                        rightHand.SendHapticImpulse(0, motorValue, Time.deltaTime);
-                    }
+                    leftHand.SendHapticImpulse(0, motorValue, Time.deltaTime);
                 }
             }
-            else
+            if (rightHand.TryGetHapticCapabilities(out capabilities))
             {
-                SteamVR_Actions.gameplay_Haptic.Execute(0, 0, 80, motorValue, SteamVR_Input_Sources.LeftHand);
-                SteamVR_Actions.gameplay_Haptic.Execute(0, 0, 80, motorValue, SteamVR_Input_Sources.RightHand);
+                if (capabilities.supportsImpulse)
+                {
+                    rightHand.SendHapticImpulse(0, motorValue, Time.deltaTime);
+                }
             }
         }
 
@@ -279,7 +267,7 @@ namespace VRMod
                 // Note: this will only provide y-axis rotation (yaw); z-axis rotation (pitch) will still be controlled by the head.
                 
                 Quaternion controllerRotation = InputTracking.GetLocalRotation(XRNode.LeftHand);
-                Quaternion headRotation = Camera.main.transform.localRotation;
+                Quaternion headRotation = UnityEngine.Camera.main.transform.localRotation;
 
                 float angleDifference = headRotation.eulerAngles.y - controllerRotation.eulerAngles.y;
 
@@ -341,6 +329,7 @@ namespace VRMod
             vrControllers = RewiredAddons.CreateRewiredController();
             vrUIMap = RewiredAddons.CreateUIMap(vrControllers.id);
             vrGameplayMap = RewiredAddons.CreateGameplayMap(vrControllers.id);
+            
 
             if (ModConfig.InitialOculusModeValue)
             {

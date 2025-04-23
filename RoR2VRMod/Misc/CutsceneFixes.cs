@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.UI;
+using VRMod.Camera;
 
 namespace VRMod
 {
@@ -115,7 +116,7 @@ namespace VRMod
                         GameObject newSceneCamObject = GameObject.Instantiate(cameraRig.sceneCam.gameObject, cameraParent.position, cameraParent.rotation, cameraParent);
                         GameObject.Destroy(cameraRig.sceneCam.gameObject);
 
-                        Camera newCam = newSceneCamObject.GetComponent<Camera>();
+                        UnityEngine.Camera newCam = newSceneCamObject.GetComponent<UnityEngine.Camera>();
                         newCam.cullingMask = newCam.cullingMask & ~(1 << LayerIndex.ui.intVal);
                         cameraRig.sceneCam = newCam;
                         cameraRig.sprintingParticleSystem = newSceneCamObject.GetComponentInChildren<ParticleSystem>();

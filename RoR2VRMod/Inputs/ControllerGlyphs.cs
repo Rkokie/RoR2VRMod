@@ -1,13 +1,8 @@
 ﻿using Rewired;
 using RoR2;
 using RoR2.UI;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using TMPro;
-using UnityEngine.XR;
-using Valve.VR;
 
 namespace VRMod
 {
@@ -153,7 +148,7 @@ namespace VRMod
 
         private static void FindControllerType()
         {
-            uint index = OpenVR.System.GetTrackedDeviceIndexForControllerRole(ETrackedControllerRole.RightHand);
+            /*uint index = OpenVR.System.GetTrackedDeviceIndexForControllerRole(ETrackedControllerRole.RightHand);
 
             StringBuilder result = new StringBuilder();
             ETrackedPropertyError error = ETrackedPropertyError.TrackedProp_Success;
@@ -169,10 +164,12 @@ namespace VRMod
                 else if (resultString.Contains("holographic_controller"))
                     currentGlyphs = wmrGlyphs;
                 else
-                    currentGlyphs = standardGlyphs;
+                    currentGlyphs = standardGlyphs;*/
+
+                currentGlyphs = standardGlyphs;
 
                 RoR2Application.onUpdate -= FindControllerType;
-            }
+            // }
         }
 
         private static string GetCustomGlyphString(On.RoR2.Glyphs.orig_GetGlyphString_MPEventSystem_string_AxisRange_InputSource orig, MPEventSystem eventSystem, string actionName, AxisRange axisRange, MPEventSystem.InputSource currentInputSource)
@@ -181,19 +178,18 @@ namespace VRMod
             {
                 return "???";
             }
-            if (isUsingMotionControls)
-            {
-                Glyphs.resultsList.Clear();
-                eventSystem.player.controllers.maps.GetElementMapsWithAction(ControllerType.Custom, Controllers.ControllerID, actionName, false, Glyphs.resultsList);
 
-                if (Glyphs.resultsList.Count() > 0)
-                {
-                    ActionElementMap displayedMap = Glyphs.resultsList.First();
-                    if (displayedMap.elementIdentifierId > 0 && displayedMap.elementIdentifierId < currentGlyphs.Length)
-                    {
-                        return currentGlyphs[displayedMap.elementIdentifierId];
-                    }
-                }
+            if (!isUsingMotionControls) return orig(eventSystem, actionName, axisRange, currentInputSource);
+            
+            Glyphs.resultsList.Clear();
+            eventSystem.player.controllers.maps.GetElementMapsWithAction(ControllerType.Custom, Controllers.ControllerID, actionName, false, Glyphs.resultsList);
+
+            if (!Glyphs.resultsList.Any()) return orig(eventSystem, actionName, axisRange, currentInputSource);
+
+            ActionElementMap displayedMap = Glyphs.resultsList.First();
+            if (displayedMap.elementIdentifierId > 0 && displayedMap.elementIdentifierId < currentGlyphs.Length)
+            {
+                return currentGlyphs[displayedMap.elementIdentifierId];
             }
 
             return orig(eventSystem, actionName, axisRange, currentInputSource);

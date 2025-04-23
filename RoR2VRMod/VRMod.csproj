@@ -29,29 +29,32 @@
     <Reference Include="ShockwaveManager">
       <HintPath>..\VREnabler\Plugins\ShockwaveManager.dll</HintPath>
     </Reference>
-    <Reference Include="SteamVR">
-      <HintPath>..\VREnabler\Dependencies\SteamVR.dll</HintPath>
-    </Reference>
-    <Reference Include="SteamVR_Actions">
-      <HintPath>..\VREnabler\Dependencies\SteamVR_Actions.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.Postprocessing.Runtime">
       <HintPath>$(GameFolderPath)\Risk of Rain 2_Data\Managed\Unity.Postprocessing.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Unity.XR.CoreUtils">
-      <HintPath>..\VREnabler\Dependencies\Unity.XR.CoreUtils.dll</HintPath>
+      <HintPath>..\VREnabler\Plugins\Unity.XR.CoreUtils.dll</HintPath>
     </Reference>
     <Reference Include="Unity.XR.Management">
-      <HintPath>..\VREnabler\Dependencies\Unity.XR.Management-nstrip.dll</HintPath>
+      <HintPath>..\VREnabler\Plugins\Unity.XR.Management.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.XR.Oculus">
-      <HintPath>..\VREnabler\Dependencies\Unity.XR.Oculus-nstrip.dll</HintPath>
+    <Reference Include="Unity.XR.OpenXR">
+      <HintPath>..\VREnabler\Plugins\Unity.XR.OpenXR.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.XR.OpenVR">
-      <HintPath>..\VREnabler\Dependencies\Unity.XR.OpenVR.dll</HintPath>
+    <Reference Include="Unity.InputSystem">
+      <HintPath>..\VREnabler\Plugins\Unity.InputSystem.dll</HintPath>
+    </Reference>
+    <Reference Include="SteamVR_Actions">
+      <HintPath>..\VREnabler\Plugins\SteamVR_Actions.dll</HintPath>
+    </Reference>
+    <Reference Include="SteamVR">
+      <HintPath>..\VREnabler\Plugins\SteamVR.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.SpatialTracking">
       <HintPath>$(GameFolderPath)\Risk of Rain 2_Data\Managed\UnityEngine.SpatialTracking.dll</HintPath>
+    </Reference>
+    <Reference Include="Facepunch.Steamworks">
+      <HintPath>$(GameFolderPath)\Risk of Rain 2_Data\Managed\Facepunch.Steamworks.dll</HintPath>
     </Reference>
   </ItemGroup>
 
@@ -70,8 +73,27 @@
     </EmbeddedResource>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Uuvr\" />
+  </ItemGroup>
+
+  <Target Name="CopySteamworksDLL" AfterTargets="Build">
+    <PropertyGroup>
+      <SteamworksNuGetPath>$(NuGetPackageRoot)facepunch.steamworks\</SteamworksNuGetPath>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <SteamworksDLL Include="$(SteamworksNuGetPath)**\Facepunch.Steamworks.Win64.dll" />
+    </ItemGroup>
+
+    <Copy SourceFiles="@(SteamworksDLL)"
+          DestinationFolder="$(TargetDir)"
+          SkipUnchangedFiles="true" />
+  </Target>
+
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="copy &quot;$(TargetPath)&quot; &quot;C:\Users\olipo\AppData\Roaming\r2modmanPlus-local\RiskOfRain2\profiles\Default\BepInEx\plugins\DrBibop-VRMod\$(TargetFileName)&quot;" />
+    <!--<Exec Command="copy &quot;$(TargetPath)&quot; &quot;C:\Users\olipo\AppData\Roaming\r2modmanPlus-local\RiskOfRain2\profiles\Default\BepInEx\plugins\DrBibop-VRMod\$(TargetFileName)&quot;" />-->
+    <Exec Command="copy &quot;$(TargetPath)&quot; &quot;C:\Users\kokro\AppData\Roaming\Thunderstore Mod Manager\DataFolder\RiskOfRain2\profiles\VR Only\BepInEx\plugins\DrBibop-VRMod\$(TargetFileName)&quot;" />
   </Target>
 
 </Project>

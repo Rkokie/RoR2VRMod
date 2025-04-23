@@ -1,10 +1,10 @@
-﻿using RoR2;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using RoR2;
 using UnityEngine;
 
-namespace VRMod
+namespace VRMod.Camera
 {
     public class ConfortVignette : MonoBehaviour
     {

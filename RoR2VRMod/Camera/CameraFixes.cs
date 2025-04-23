@@ -1,17 +1,17 @@
-﻿using Mono.Cecil.Cil;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Mono.Cecil.Cil;
 using MonoMod.Cil;
 using MonoMod.RuntimeDetour;
 using RoR2;
 using RoR2.CameraModes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.SpatialTracking;
 
-namespace VRMod
+namespace VRMod.Camera
 {
     public static class CameraFixes
     {
@@ -31,7 +31,7 @@ namespace VRMod
         private static GameObject spectatorCamera;
         private static GameObject spectatorScreen;
 
-        private static Camera spectatorCameraComponent;
+        private static UnityEngine.Camera spectatorCameraComponent;
 
         private static GameObject spectatorCameraPrefab;
         private static GameObject spectatorScreenPrefab;
@@ -43,12 +43,11 @@ namespace VRMod
         internal static LIV.SDK.Unity.LIV liv { get; private set; }
 
         private static Transform cameraOffset;
-        private static Camera camera;
 
         internal static void Init()
         {
             spectatorCameraPrefab = VRMod.VRAssetBundle.LoadAsset<GameObject>("SpectatorCamera");
-            spectatorCameraPrefab.GetComponent<Camera>().stereoTargetEye = StereoTargetEyeMask.None;
+            spectatorCameraPrefab.GetComponent<UnityEngine.Camera>().stereoTargetEye = StereoTargetEyeMask.None;
 
             spectatorScreenPrefab = VRMod.VRAssetBundle.LoadAsset<GameObject>("SpectatorScreen");
 
@@ -138,7 +137,7 @@ namespace VRMod
 
             c.EmitDelegate<Func<RoR2.PitchYawPair>>(() => 
             {
-                Vector3 lookVector = Camera.main.transform.forward;
+                Vector3 lookVector = UnityEngine.Camera.main.transform.forward;
                 float x = Mathf.Sqrt(lookVector.x * lookVector.x + lookVector.z * lookVector.z);
                 return new PitchYawPair(Mathf.Atan2(-lookVector.y, x) * 57.29578f, Mathf.Repeat(Mathf.Atan2(lookVector.x, lookVector.z) * 57.29578f, 360f));
             });
@@ -150,8 +149,6 @@ namespace VRMod
 
             if (self.hud == null && Utils.localCameraRig && Utils.localCameraRig.hud)
                 self.hud = Utils.localCameraRig.hud;
-            
-            camera = self.GetComponent<Camera>();
         }
 
         private static void RemoveRecoilAndCameraPitch(ILContext il)
@@ -293,7 +290,7 @@ namespace VRMod
 
             c.EmitDelegate<Func<ThreeEyedGames.DecaliciousRenderer, bool>>((self) =>
             {
-                if (camera.stereoTargetEye == StereoTargetEyeMask.None) return true;
+                if (self.GetComponent<UnityEngine.Camera>().stereoTargetEye == StereoTargetEyeMask.None) return true;
 
                 bool result = lastFrameCount == Time.renderedFrameCount;
                 if (result)
@@ -722,7 +719,7 @@ namespace VRMod
                 {
                     if (!spectatorCamera)
                     {
-                        Camera cameraReference = Camera.main;
+                        UnityEngine.Camera cameraReference = UnityEngine.Camera.main;
 
                         bool cameraReferenceEnabled = cameraReference.enabled;
                         if (cameraReferenceEnabled)
@@ -741,15 +738,15 @@ namespace VRMod
 
                         foreach (Component component in components)
                         {
-                            if (!(component is Transform) && !(component is Camera) && !(component is PostProcessLayer) && !(component is RoR2.PostProcess.SobelCommandBuffer && !(component is ThreeEyedGames.DecaliciousRenderer)))
+                            if (!(component is Transform) && !(component is UnityEngine.Camera) && !(component is PostProcessLayer) && !(component is RoR2.PostProcess.SobelCommandBuffer && !(component is ThreeEyedGames.DecaliciousRenderer)))
                             {
                                 Component.Destroy(component);
                             }
                         }
 
-                        spectatorCameraComponent = spectatorCamera.GetComponent<Camera>();
+                        spectatorCameraComponent = spectatorCamera.GetComponent<UnityEngine.Camera>();
                         spectatorCameraComponent.stereoTargetEye = StereoTargetEyeMask.None;
-                        spectatorCameraComponent.targetTexture = spectatorCameraPrefab.GetComponent<Camera>().targetTexture;
+                        spectatorCameraComponent.targetTexture = spectatorCameraPrefab.GetComponent<UnityEngine.Camera>().targetTexture;
 
                         if (cameraReferenceActive != cameraReference.gameObject.activeSelf)
                         {
@@ -810,7 +807,7 @@ namespace VRMod
                 return MotionControls.GetHandByDominance(true).aimRay;
             }
 
-            Camera sceneCam = context.cameraInfo.sceneCam;
+            UnityEngine.Camera sceneCam = context.cameraInfo.sceneCam;
 
             if (!sceneCam)
             {

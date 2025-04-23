@@ -1,11 +1,11 @@
-﻿using RoR2;
+﻿using System.Collections.Generic;
+using RoR2;
 using RoR2.UI;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.XR;
 
-namespace VRMod
+namespace VRMod.Camera
 {
     internal static class RecenterController
     {

@@ -22,9 +22,9 @@ namespace VRMod
         [SerializeField]
         private Canvas overlayCanvas;
 
-        private Camera scopeCamera;
+        private UnityEngine.Camera scopeCamera;
 
-        private Camera scopeUICamera;
+        private UnityEngine.Camera scopeUICamera;
 
         private Material renderMaterial;
 
@@ -74,7 +74,7 @@ namespace VRMod
         {
             if (Utils.localCameraRig && Utils.localCameraRig.hud)
             {
-                Camera cameraReference = Utils.localCameraRig.sceneCam;
+                UnityEngine.Camera cameraReference = Utils.localCameraRig.sceneCam;
 
                 bool cameraReferenceEnabled = cameraReference.enabled;
                 if (cameraReferenceEnabled)
@@ -87,12 +87,12 @@ namespace VRMod
                     cameraReference.gameObject.SetActive(false);
                 }
 
-                scopeCamera = GameObject.Instantiate(cameraReference.gameObject, null).GetComponent<Camera>();
+                scopeCamera = GameObject.Instantiate(cameraReference.gameObject, null).GetComponent<UnityEngine.Camera>();
                 Component[] components = scopeCamera.GetComponents<Component>();
                 Behaviour.Destroy(scopeCamera.GetComponent<OutlineHighlight>());
                 foreach (Component component in components)
                 {
-                    if (!(component is Transform) && !(component is Camera) && !(component is PostProcessLayer) && !(component is RoR2.PostProcess.SobelCommandBuffer && !(component is ThreeEyedGames.DecaliciousRenderer)))
+                    if (!(component is Transform) && !(component is UnityEngine.Camera) && !(component is PostProcessLayer) && !(component is RoR2.PostProcess.SobelCommandBuffer && !(component is ThreeEyedGames.DecaliciousRenderer)))
                     {
                         Component.Destroy(component);
                     }
@@ -127,7 +127,7 @@ namespace VRMod
                 uiCamObject.transform.localRotation = Quaternion.identity;
                 uiCamObject.transform.localScale = Vector3.one;
 
-                scopeUICamera = uiCamObject.AddComponent<Camera>();
+                scopeUICamera = uiCamObject.AddComponent<UnityEngine.Camera>();
                 scopeUICamera.cullingMask = (1 << RoR2.LayerIndex.enemyBody.intVal);
                 scopeUICamera.clearFlags = CameraClearFlags.SolidColor;
                 scopeUICamera.backgroundColor = new Color(0, 0, 0, 0);

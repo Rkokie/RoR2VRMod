@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
-using Valve.VR;
 
 namespace VRMod
 {
@@ -137,8 +136,8 @@ namespace VRMod
         {
             uiMode = Utils.isUsingUI;
 
-            if (transform.parent != Camera.main.transform.parent)
-                transform.SetParent(Camera.main.transform.parent);
+            if (transform.parent != UnityEngine.Camera.main.transform.parent && UnityEngine.Camera.main != null)
+                transform.SetParent(UnityEngine.Camera.main.transform.parent);
 
             Vector3 handPosition = Vector3.zero;
             Quaternion handRotation = Quaternion.identity;

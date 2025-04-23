@@ -6,7 +6,7 @@ namespace VRMod
 {
     internal class UIPointer
     {
-        private static Camera _cachedUICam;
+        private static UnityEngine.Camera _cachedUICam;
 
         private static float clickTime;
 
@@ -20,21 +20,17 @@ namespace VRMod
 
         private static Canvas lastHitCanvas;
 
-        private static Camera cachedUICam
+        private static UnityEngine.Camera cachedUICam
         {
             get
             {
-                if (_cachedUICam == null || !_cachedUICam.isActiveAndEnabled)
-                {
-                    if (Camera.main)
-                    {
-                        SceneCamera sceneCamera = Camera.main.GetComponent<SceneCamera>();
-                        if (sceneCamera)
-                        {
-                            _cachedUICam = sceneCamera.cameraRigController.uiCam;
-                        }
-                    }
-                }
+                if (_cachedUICam != null && _cachedUICam.isActiveAndEnabled) return _cachedUICam;
+                if (!UnityEngine.Camera.main) return _cachedUICam;
+                
+                SceneCamera sceneCamera = UnityEngine.Camera.main.GetComponent<SceneCamera>();
+                if (!sceneCamera) return _cachedUICam;
+                
+                _cachedUICam = sceneCamera.cameraRigController.uiCam;
                 return _cachedUICam;
             }
         }
@@ -116,7 +112,7 @@ namespace VRMod
                 clickTime = 0;
             }
 
-            Camera uiCam = cachedUICam;
+            UnityEngine.Camera uiCam = cachedUICam;
 
             Ray ray;
             if (MotionControls.HandsReady)

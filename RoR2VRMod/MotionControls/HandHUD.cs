@@ -1,6 +1,7 @@
 ﻿using RoR2;
 using System.Collections.Generic;
 using UnityEngine;
+using VRMod.Camera;
 
 namespace VRMod
 {

@@ -25,7 +25,7 @@ namespace VRMod
 
         private static readonly Vector2 gameDetailsResolution = new Vector2(450, 300);
 
-        private static Camera cachedUICam;
+        private static UnityEngine.Camera cachedUICam;
         private static Vector3 camRotation;
 
         private static Canvas cachedMultiplayerCanvas;
@@ -116,8 +116,8 @@ namespace VRMod
             On.RoR2.SplashScreenController.Start += (orig, self) =>
             {
                 orig(self);
-                Camera.main.clearFlags = CameraClearFlags.SolidColor;
-                Camera.main.backgroundColor = Color.black;
+                UnityEngine.Camera.main.clearFlags = CameraClearFlags.SolidColor;
+                UnityEngine.Camera.main.backgroundColor = Color.black;
                 GameObject splash = GameObject.Find("SpashScreenCanvas");
                 if (splash)
                     CanvasToWorldSpace(splash, hdResolution, menuPosition, menuScale, false);
@@ -232,7 +232,7 @@ namespace VRMod
             }
         }
 
-        private static void HideCrosshair(On.RoR2.UI.CrosshairManager.orig_UpdateCrosshair orig, CrosshairManager self, CharacterBody targetBody, Vector3 crosshairWorldPosition, Camera uiCamera)
+        private static void HideCrosshair(On.RoR2.UI.CrosshairManager.orig_UpdateCrosshair orig, CrosshairManager self, CharacterBody targetBody, Vector3 crosshairWorldPosition, UnityEngine.Camera uiCamera)
         {
             orig(self, targetBody, crosshairWorldPosition, uiCamera);
 
@@ -297,7 +297,7 @@ namespace VRMod
             }
         }
 
-        internal static void CreateLIVHUD(Camera livCamera)
+        internal static void CreateLIVHUD(UnityEngine.Camera livCamera)
         {
             CameraRigController cameraRig = Utils.localCameraRig;
 
@@ -403,7 +403,7 @@ namespace VRMod
             }
         }
 
-        private static void PositionForUIOverride(On.RoR2.Indicator.orig_PositionForUI orig, Indicator self, Camera sceneCamera, Camera uiCamera)
+        private static void PositionForUIOverride(On.RoR2.Indicator.orig_PositionForUI orig, Indicator self, UnityEngine.Camera sceneCamera, UnityEngine.Camera uiCamera)
         {
             if (self.targetTransform)
             {
@@ -628,7 +628,7 @@ namespace VRMod
             }
         }
 
-        private static void UpdateAllHealthBarPositionsVR(On.RoR2.UI.CombatHealthBarViewer.orig_UpdateAllHealthbarPositions orig, RoR2.UI.CombatHealthBarViewer self, Camera sceneCam, Camera uiCam)
+        private static void UpdateAllHealthBarPositionsVR(On.RoR2.UI.CombatHealthBarViewer.orig_UpdateAllHealthbarPositions orig, RoR2.UI.CombatHealthBarViewer self, UnityEngine.Camera sceneCam, UnityEngine.Camera uiCam)
         {
             if (sceneCam && uiCam)
             {

@@ -1,4 +1,5 @@
 ﻿using System;
+using VRMod.Camera;
 
 namespace VRAPI
 {
@@ -27,7 +28,7 @@ namespace VRAPI
         /// <param name="stateType">The state type that will use the vignette.</param>
         public static void AddVignetteState(Type stateType)
         {
-            VRMod.ConfortVignette.AddVignetteState(stateType);
+            ConfortVignette.AddVignetteState(stateType);
         }
 
         /// <summary>
@@ -37,7 +38,7 @@ namespace VRAPI
         /// <param name="rendererObjectName">The name of the renderer object.</param>
         public static void PreventRendererDisable(string bodyName, string rendererObjectName)
         {
-            VRMod.CameraFixes.PreventRendererDisable(bodyName, rendererObjectName);
+            CameraFixes.PreventRendererDisable(bodyName, rendererObjectName);
         }
     }
 }

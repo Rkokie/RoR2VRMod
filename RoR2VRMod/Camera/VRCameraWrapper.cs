@@ -2,7 +2,7 @@
 using Unity.XR.CoreUtils;
 using UnityEngine;
 
-namespace VRMod
+namespace VRMod.Camera
 {
     internal class VRCameraWrapper : MonoBehaviour
     {
