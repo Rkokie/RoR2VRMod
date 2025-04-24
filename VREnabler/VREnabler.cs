@@ -1,115 +1,236 @@
-﻿using BepInEx;
-using BepInEx.Logging;
-using Mono.Cecil;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Security.Cryptography;
+using AssetsTools.NET;
+using AssetsTools.NET.Extra;
+using Mono.Cecil;
 
 namespace VRPatcher
 {
     public static class VRDependenciesPatcher
     {
-        private static string VR_MANIFEST = "{ \"name\": \"OpenXR XR Plugin\", \"version\": \"1.13.0\", \"libraryName\": \"UnityOpenXR\", \"displays\": [{\"id\": \"OpenXR Display\" }], \"inputs\": [{\"id\": \"OpenXR Input\"}]} ";
-        private static readonly ManualLogSource Logger = BepInEx.Logging.Logger.CreateLogSource("VRDependenciesPatcher");
+        private static readonly List<string> GlobalSettingsFileNames =
+            new List<string>()
+            {
+                "globalgamemanagers", "mainData", "data.unity3d"
+            };
+
+        private static readonly List<string> PluginsToDeleteBeforePatch =
+            new List<string>()
+            {
+                "openvr_api", "openxr_loader", "UnityOpenXR", "ucrtbased.dll", "XRSDKOpenVR"
+            };
+
+        public static IEnumerable<string> TargetDLLs { get; } = new[] { "Assembly-CSharp.dll" };
+
+        public static void Patch(AssemblyDefinition assembly)
+        {
+        }
 
         public static void Initialize()
         {
-            Logger.LogInfo("Setting up VR runtime assets");
-        
-            SetupRuntimeAssets();
-        
-            Logger.LogInfo("We're done here. Goodbye!");
+            Console.WriteLine("Patching UUVR...");
+
+            var installerPath = Assembly.GetExecutingAssembly().Location;
+
+            var gameExePath = Process.GetCurrentProcess().MainModule.FileName;
+
+            var gamePath = Path.GetDirectoryName(gameExePath);
+            var gameName = Path.GetFileNameWithoutExtension(gameExePath);
+            var dataPath = Path.Combine(gamePath, $"{gameName}_Data/");
+            var patcherPath = Path.GetDirectoryName(installerPath);
+
+            CopyFilesToGame(patcherPath, dataPath);
+
+            Console.WriteLine("");
+            Console.WriteLine("Installed successfully, probably.");
         }
 
-        /// <summary>
-        /// Place required runtime libraries and configuration in the game files to allow VR to be started
-        /// </summary>
-        public static void SetupRuntimeAssets()
+        private static string GetGlobalSettingsFilePath(string dataPath)
         {
-            var root = Path.Combine(Paths.GameRootPath, "Risk of Rain 2_Data");
-            var subsystems = Path.Combine(root, "UnitySubsystems");
-            if (!Directory.Exists(subsystems))
-                Directory.CreateDirectory(subsystems);
-
-            var openXr = Path.Combine(subsystems, "UnityOpenXR");
-            if (!Directory.Exists(openXr))
-                Directory.CreateDirectory(openXr);
-
-            var manifest = Path.Combine(openXr, "UnitySubsystemsManifest.json");
-            if (!File.Exists(manifest))
-                File.WriteAllText(manifest, VR_MANIFEST);
-
-            var plugins = Path.Combine(root, "Plugins");
-            var oxrPluginTarget = Path.Combine(plugins, "UnityOpenXR.dll");
-            var oxrLoaderTarget = Path.Combine(plugins, "openxr_loader.dll");
-
-            var current = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            if (current == null)
+            foreach (var globalSettingsFielName in GlobalSettingsFileNames)
             {
-                Logger.LogError(" Did not find current executing assembly location.");
-                return;
-            } 
-            var oxrPlugin = Path.Combine(current, "RuntimeDeps/UnityOpenXR.dll");
-            var oxrLoader = Path.Combine(current, "RuntimeDeps/openxr_loader.dll");
-
-            if (!CopyResourceFile(oxrPlugin, oxrPluginTarget))
-                Logger.LogWarning("Could not find plugin UnityOpenXR.dll, VR might not work!");
-
-            if (!CopyResourceFile(oxrLoader, oxrLoaderTarget))
-                Logger.LogWarning("Could not find plugin openxr_loader.dll, VR might not work!");
-        }
-        
-        public static byte[] ComputeHash(byte[] input)
-        {
-            using (var sha = SHA256.Create())
-            {
-                return sha.ComputeHash(input);
-            }
-        }
-    
-        /// <summary>
-        /// Helper function for SetupRuntimeAssets() to copy resource files and return false if the source does not exist
-        /// </summary>
-        private static bool CopyResourceFile(string sourceFile, string destinationFile)
-        {
-            if (!File.Exists(sourceFile))
-                return false;
-
-            if (File.Exists(destinationFile))
-            {
-                var sourceHash = ComputeHash(File.ReadAllBytes(sourceFile));
-                var destHash = ComputeHash(File.ReadAllBytes(destinationFile));
-
-                if (sourceHash.SequenceEqual(destHash))
-                    return true;
+                var path = Path.Combine(dataPath, globalSettingsFielName);
+                if (File.Exists(path))
+                {
+                    return path;
+                }
             }
 
-            File.Copy(sourceFile, destinationFile, true);
-
-            return true;
+            throw new Exception("Failed to find global settings file path");
         }
 
-        /// <summary>
-        /// For BepInEx to identify your patcher as a patcher, it must match the patcher contract as outlined in the BepInEx docs:
-        /// https://bepinex.github.io/bepinex_docs/v5.0/articles/dev_guide/preloader_patchers.html#patcher-contract
-        /// It must contain a list of managed assemblies to patch as a public static <see cref="IEnumerable{T}"/> property named TargetDLLs
-        /// </summary>
-        [Obsolete("Should not be used!", true)]
-        public static IEnumerable<string> TargetDLLs { get; } = new string[0];
+        private static string CreateGlobalSettingsBackup(string globalSettingsFilePath)
+        {
+            Console.WriteLine($"Backing up '{globalSettingsFilePath}'...");
+            var backupPath = globalSettingsFilePath + ".bak";
+            if (File.Exists(backupPath))
+            {
+                Console.WriteLine($"Backup already exists.");
+                return backupPath;
+            }
 
-        /// <summary>
-        /// For BepInEx to identify your patcher as a patcher, it must match the patcher contract as outlined in the BepInEx docs:
-        /// https://bepinex.github.io/bepinex_docs/v5.0/articles/dev_guide/preloader_patchers.html#patcher-contract
-        /// It must contain a public static void method named Patch which receives an <see cref="AssemblyDefinition"/> argument,
-        /// which patches each of the target assemblies in the TargetDLLs list.
-        /// 
-        /// We don't actually need to patch any of the managed assemblies, so we are providing an empty method here.
-        /// </summary>
-        /// <param name="ad"></param>
-        [Obsolete("Should not be used!", true)]
-        public static void Patch(AssemblyDefinition ad) { }
+            File.Copy(globalSettingsFilePath, backupPath);
+            Console.WriteLine($"Created backup in '{backupPath}'");
+            return backupPath;
+        }
+
+        private static void PatchVR(string globalSettingsBackupPath, string globalSettingsFilePath,
+            string classDataPath)
+        {
+            Console.WriteLine($"Using classData file from path '{classDataPath}'");
+
+            var am = new AssetsManager();
+            am.LoadClassPackage(classDataPath);
+            var ggm = am.LoadAssetsFile(globalSettingsBackupPath, false);
+            var ggmFile = ggm.file;
+            var ggmTable = ggm.table;
+            am.LoadClassDatabaseFromPackage(ggmFile.typeTree.unityVersion);
+
+            var replacers = new List<AssetsReplacer>();
+
+            // TODO: Read inputs from globalgamemanagers, store map somewhere, patch in-game?
+            // AssetFileInfoEx inputManager = ggmTable.GetAssetInfo(2);
+            // AssetTypeValueField inputManagerBase = am.GetATI(ggmFile, inputManager).GetBaseField();
+            // AssetTypeValueField axes = inputManagerBase.Get("m_Axes").Get("Array");
+            // Console.WriteLine($"#### Found axes: {axes.children.Length}, looping...");
+            //
+            // foreach (AssetTypeValueField? child in axes.children)
+            // {
+            //     int axis = child.Get("axis").value.AsInt();
+            //     int type = child.Get("type").value.AsInt();
+            //     int joyNum = child.Get("joyNum").value.AsInt();
+            //     string? name = child.Get("m_Name").value.AsString();
+            //     string? positiveButton = child.Get("positiveButton").value.AsString();
+            //     string? negativeButton = child.Get("negativeButton").value.AsString();
+            //     string? altNegativeButton = child.Get("altNegativeButton").value.AsString();
+            //     string? altPositiveButton = child.Get("altPositiveButton").value.AsString();
+            //     float gravity = child.Get("gravity").value.AsFloat();
+            //     float dead = child.Get("dead").value.AsFloat();
+            //     float sensitivity = child.Get("sensitivity").value.AsFloat();
+            //     bool snap = child.Get("snap").value.AsBool();
+            //     bool invert = child.Get("invert").value.AsBool();
+            //
+            //     if (string.IsNullOrEmpty(positiveButton)) continue;
+            //
+            //     if (!positiveButton.StartsWith("joystick")) continue;
+            //
+            //     Console.WriteLine($"name:{name} | positiveButton:{positiveButton} ");
+            // }
+
+            var buildSettings = ggmTable.GetAssetInfo(11);
+#pragma warning disable CS0618 // Type or member is obsolete
+            var buildSettingsBase = am.GetATI(ggmFile, buildSettings).GetBaseField();
+#pragma warning restore CS0618 // Type or member is obsolete
+            var enabledVRDevices = buildSettingsBase.Get("enabledVRDevices").Get("Array");
+            var stringTemplate = enabledVRDevices.templateField.children[1];
+
+            // AssetTypeValueField[] vrDevicesList = { StringField("None", stringTemplate), StringField("OpenVR", stringTemplate), StringField("Oculus", stringTemplate) };
+            AssetTypeValueField[] vrDevicesList =
+                { StringField("OpenVR", stringTemplate), StringField("Oculus", stringTemplate) };
+            enabledVRDevices.SetChildrenList(vrDevicesList);
+
+            replacers.Add(new AssetsReplacerFromMemory(0, buildSettings.index, (int)buildSettings.curFileType, 0xffff,
+                buildSettingsBase.WriteToByteArray()));
+
+            using (var writer = new AssetsFileWriter(File.OpenWrite(globalSettingsFilePath)))
+            {
+                ggmFile.Write(writer, 0, replacers, 0);
+            }
+        }
+
+        private static AssetTypeValueField StringField(string str, AssetTypeTemplateField template)
+        {
+            return new AssetTypeValueField()
+            {
+                children = null,
+                childrenCount = 0,
+                templateField = template,
+                value = new AssetTypeValue(EnumValueTypes.ValueType_String, str)
+            };
+        }
+
+        private static void CopyFilesToGame(string patcherPath, string dataPath)
+        {
+            var copyToGameFolderPath = Path.Combine(patcherPath, "CopyToGame");
+
+            Console.WriteLine(
+                $"Copying mod files to game... These files get overwritten every time the game starts. If you want to change them manually, replace them in the mod folder instead: {copyToGameFolderPath}");
+
+            CopyDirectory(Path.Combine(copyToGameFolderPath, "Data"), dataPath);
+
+            var gamePluginsPath = Path.Combine(dataPath, "Plugins");
+            Directory.CreateDirectory(gamePluginsPath);
+
+            var uuvrPluginsPath = Path.Combine(copyToGameFolderPath, "Plugins");
+
+            DeleteExistingVrPlugins(gamePluginsPath);
+
+            // IntPtr size is 4 on x86, 8 on x64.
+            var is64Bit = IntPtr.Size == 8;
+            Console.WriteLine($"Detected game as being {(is64Bit ? "x64" : "x86")}");
+
+            // Unity plugins are often in a subfolder of the Plugins folder, but they also get detected from the root folder,
+            // so we don't need to worry about the subfolders.
+            CopyDirectory(is64Bit ? Path.Combine(uuvrPluginsPath, "x64") : Path.Combine(uuvrPluginsPath, "x86"),
+                gamePluginsPath);
+        }
+
+        // There might be leftover stuff from previous UUVR versions, or from other filthy VR mods,
+        // and they might be in different subfolders, which could cause conflicts.
+        // So we should make sure to nuke them all before replacing with our own.
+        private static void DeleteExistingVrPlugins(string gamePluginsPath)
+        {
+            var pluginPaths = Directory
+                .GetFiles(gamePluginsPath, "*.dll", SearchOption.AllDirectories)
+                .Where(pluginPath => PluginsToDeleteBeforePatch
+                    .Select(pluginToDelete => $"{pluginToDelete.ToLower()}.dll")
+                    .Contains(Path.GetFileName(pluginPath).ToLower()));
+
+            Console.WriteLine($"### Found {pluginPaths.Count()} plugins");
+
+            foreach (var pluginPath in pluginPaths)
+            {
+                try
+                {
+                    Console.WriteLine($"Deleting plugin `{pluginPath}`");
+                    File.Delete(pluginPath);
+                }
+                catch (Exception exception)
+                {
+                    Console.WriteLine(
+                        $"Failed to delete plugin before patching. Path: `{pluginPath}`. Exception: `{exception}`");
+                }
+            }
+        }
+
+        private static void CopyDirectory(string sourceDir, string destinationDir)
+        {
+            var dir = new DirectoryInfo(sourceDir);
+
+            if (!dir.Exists)
+                throw new DirectoryNotFoundException($"Source directory not found: {dir.FullName}");
+
+            var dirs = dir.GetDirectories();
+
+            Directory.CreateDirectory(destinationDir);
+
+            foreach (var file in dir.GetFiles())
+            {
+                var targetFilePath = Path.Combine(destinationDir, file.Name);
+                file.CopyTo(targetFilePath, true);
+            }
+
+            foreach (var subDir in dirs)
+            {
+                var newDestinationDir = Path.Combine(destinationDir, subDir.Name);
+                CopyDirectory(subDir.FullName, newDestinationDir);
+            }
+
+            Console.WriteLine($"Copied files from:\n> {sourceDir}\nto:\n> {destinationDir}");
+        }
     }
 }
