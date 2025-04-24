@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.XR;
-using Valve.VR;
+/*using Valve.VR;*/
 using VRMod.Inputs;
 using VRMod.Inputs.Legacy;
 
@@ -353,7 +353,7 @@ namespace VRMod
             }
             else
             {
-                inputs = new BaseInput[]
+                /*inputs = new BaseInput[]
                 {
                     new VectorInput(SteamVR_Actions.gameplay_Move, 0, 1),
                     new SimulatedVectorInput(SteamVR_Actions.gameplay_Look, 2, 3, null, SteamVR_Actions.gameplay_LookRight, null, SteamVR_Actions.gameplay_LookLeft),
@@ -399,7 +399,7 @@ namespace VRMod
                 if (plugins.ContainsKey("com.KingEnderBrine.ProperSave"))
                 {
                     modInputs.Add(new ButtonInput(SteamVR_Actions.ui_ProperSaveLoad, 32));
-                }
+                }*/
             }
         }
 

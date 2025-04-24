@@ -1,4 +1,5 @@
-﻿using Rewired;
+﻿/*
+using Rewired;
 using Valve.VR;
 
 namespace VRMod.Inputs
@@ -27,3 +28,4 @@ namespace VRMod.Inputs
         }
     }
 }
+*/

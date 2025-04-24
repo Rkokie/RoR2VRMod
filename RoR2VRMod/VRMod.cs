@@ -35,8 +35,7 @@ namespace VRMod
             VRAssetBundle = AssetBundle.LoadFromMemory(Properties.Resources.vrmodassets);
 
             PreloadRuntimeDependencies();
-            
-            
+
             foreach (var runtimeDetector in OpenXRRuntimeSelector.GenerateRuntimeDetectorList())
             {
                 if (runtimeDetector.name.Contains("SteamVR"))
@@ -49,27 +48,30 @@ namespace VRMod
             
             
             ModConfig.Init();
-            ActionAddons.Init();
+
+            /*ActionAddons.Init();
             SettingsAddon.Init();
             UIFixes.Init();
             CameraFixes.Init();
             CutsceneFixes.Init();
-            FocusChecker.Init();
+            FocusChecker.Init();*/
+            
             if (ModConfig.InitialMotionControlsValue)
             {
                 RoR2.RoR2Application.isModded = true;
-                MotionControls.Init();
+                /*MotionControls.Init();
                 MotionControlledAbilities.Init();
-                EntityStateAnimationParameter.Init();
+                EntityStateAnimationParameter.Init();*/
             }
+            
+            RoR2.RoR2Application.onStart += InitVR;
 
             RoR2.RoR2Application.onLoad += () =>
             {
-                InitVR();
-                RecenterController.Init();
+                /*RecenterController.Init();
                 UIPointer.Init();
                 Haptics.HapticsManager.Init();
-                RoR2.RoR2Application.onNextUpdate += InitControllers;
+                RoR2.RoR2Application.onNextUpdate += InitControllers;*/
             };
         }
 
@@ -98,6 +100,9 @@ namespace VRMod
                     // Ignore known unmanaged libraries
                     if (filename == "UnityOpenXR.dll" || filename == "openxr_loader.dll")
                         continue;
+                    if (filename == "XRSDKOpenVR.dll" || filename == "openvr_api.dll")
+                        continue;
+                    
 
                     VRMod.StaticLogger.LogDebug($"Preloading '{filename}'...");
 

@@ -1,4 +1,5 @@
-﻿using Rewired;
+﻿/*
+using Rewired;
 using UnityEngine;
 using Valve.VR;
 
@@ -19,3 +20,4 @@ namespace VRMod.Inputs
         }
     }
 }
+*/
