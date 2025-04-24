@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "LnhR3VTwOzQ=",
+  "success": true,
+  "projectFilePath": "C:\\Projects\\CSharp\\RoR2VRMod\\Uuvr.Patcher\\Uuvr.Patcher.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\RogerKok\\.nuget\\packages\\assetstools.net\\2.0.9\\assetstools.net.2.0.9.nupkg.sha512",
+    "C:\\Users\\RogerKok\\.nuget\\packages\\mono.cecil\\0.10.4\\mono.cecil.0.10.4.nupkg.sha512"
+  ],
+  "logs": []
+}

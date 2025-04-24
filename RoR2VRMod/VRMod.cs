@@ -10,6 +10,7 @@ using BepInEx.Logging;
 using UnityEngine;
 using UnityEngine.XR.Management;
 using UnityEngine.XR.OpenXR;
+using Uuvr;
 using Uuvr.VrTogglers;
 using VRMod.Camera;
 using VRMod.Unity;

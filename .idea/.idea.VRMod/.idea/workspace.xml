@@ -1,9 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="b0003fc9-78cf-4ce0-908e-235d6257f740" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.VRMod/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.VRMod/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RoR2VRMod/Settings/ModConfig.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RoR2VRMod/Settings/ModConfig.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RoR2VRMod/Uuvr.XR.Management/Uuvr.XR.Management.csproj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RoR2VRMod/Uuvr.XR.Management/XRConfigurationData.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RoR2VRMod/Uuvr.XR.Management/XRGeneralSettings.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RoR2VRMod/Uuvr.XR.Management/XRLoader.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RoR2VRMod/Uuvr.XR.Management/XRLoaderHelper.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RoR2VRMod/Uuvr.XR.Management/XRManagerSettings.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RoR2VRMod/Uuvr.XR.OpenXR/Features/OpenXRFeature.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RoR2VRMod/Uuvr.XR.OpenXR/Features/OpenXRFeatureInternal.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RoR2VRMod/Uuvr.XR.OpenXR/Features/OpenXRFeatureSettings.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RoR2VRMod/Uuvr.XR.OpenXR/Features/OpenXRInteractionFeature.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RoR2VRMod/Uuvr.XR.OpenXR/OpenXRConstants.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RoR2VRMod/Uuvr.XR.OpenXR/OpenXRLoader.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RoR2VRMod/Uuvr.XR.OpenXR/OpenXRLoaderInternal.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RoR2VRMod/Uuvr.XR.OpenXR/OpenXRNativeTypes.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RoR2VRMod/Uuvr.XR.OpenXR/OpenXRRenderSettings.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RoR2VRMod/Uuvr.XR.OpenXR/OpenXRRestarter.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RoR2VRMod/Uuvr.XR.OpenXR/OpenXRRuntime.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RoR2VRMod/Uuvr.XR.OpenXR/OpenXRSettings.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RoR2VRMod/Uuvr.XR.OpenXR/Uuvr.XR.OpenXR.csproj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RoR2VRMod/Uuvr/VrTogglers/VrToggler.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RoR2VRMod/Uuvr/VrTogglers/VrTogglerManager.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RoR2VRMod/Uuvr/VrTogglers/XrPluginOpenXrToggler.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RoR2VRMod/Uuvr/VrTogglers/XrPluginToggler.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RoR2VRMod/VRMod.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RoR2VRMod/VRMod.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RoR2VRMod/VRMod.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/RoR2VRMod/VRMod.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VREnabler/Plugins/AudioPluginOculusSpatializer.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/VREnabler/Plugins/SteamVR.dll" beforeDir="false" afterPath="$PROJECT_DIR$/VREnabler/Plugins/SteamVR.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VREnabler/Plugins/SteamVR_Actions.dll" beforeDir="false" afterPath="$PROJECT_DIR$/VREnabler/Plugins/SteamVR_Actions.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VREnabler/Plugins/openvr_api.dll" beforeDir="false" afterPath="$PROJECT_DIR$/VREnabler/Plugins/openvr_api.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VREnabler/VRPatcher.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/VREnabler/VRPatcher.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VRMod.sln" beforeDir="false" afterPath="$PROJECT_DIR$/VRMod.sln" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VRMod.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/VRMod.sln.DotSettings.user" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
   <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
     <option name="WARN_ABOUT_CRLF" value="false" />
   </component>
-  <component name="PropertiesComponent">{}</component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$APPLICATION_HOME_DIR$/lib/modules/intellij.rider.jar!/schemas/msbuild/Microsoft.Build.Commontypes.xsd" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e90b2191045c417bad9d31d0d0d1ffc23c00/3a/d4af459d/XRSettings.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/metadata/cd08c37fe36743b3bd7a76a59eafcc75b000/dc/cb13924e/UnityEngine.XRModule.cs" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="Toolset" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="2w8RFxQTgj1GbTtY2GHc3saaafT" />
+  <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
   <component name="RunManager">
     <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
@@ -19,5 +97,68 @@
       <option name="useMixedMode" value="false" />
       <method v="2" />
     </configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b0003fc9-78cf-4ce0-908e-235d6257f740" name="Changes" comment="" />
+      <created>1745421114187</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1745421114187</updated>
+      <workItem from="1745421115772" duration="6009000" />
+      <workItem from="1745429681162" duration="1633000" />
+    </task>
+    <task id="LOCAL-00001" summary=".idea">
+      <option name="closed" value="true" />
+      <created>1745421273050</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1745421273050</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
+  <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
+  <component name="UnityProjectDiscoverer">
+    <option name="hasUnityReference" value="true" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+    <MESSAGE value=".idea" />
+    <option name="LAST_COMMIT_MESSAGE" value=".idea" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
+          <properties exception="System.OperationCanceledException" breakIfHandledByOtherCode="false" displayValue="System.OperationCanceledException" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
+          <properties exception="System.Threading.Tasks.TaskCanceledException" breakIfHandledByOtherCode="false" displayValue="System.Threading.Tasks.TaskCanceledException" />
+          <option name="timeStamp" value="2" />
+        </breakpoint>
+        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
+          <properties exception="System.Threading.ThreadAbortException" breakIfHandledByOtherCode="false" displayValue="System.Threading.ThreadAbortException" />
+          <option name="timeStamp" value="3" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

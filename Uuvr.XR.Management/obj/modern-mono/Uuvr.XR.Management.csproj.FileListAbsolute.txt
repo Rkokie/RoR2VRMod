@@ -1,0 +1,5 @@
+C:\Users\rai\AppData\Roaming\raicuparta\rai-pal\data\mod-loaders\bepinex\mods\Mono\uuvr-mono-modern\plugins\Uuvr.XR.Management.dll
+C:\Projects\CSharp\RoR2VRMod\Uuvr.XR.Management\obj\modern-mono\Uuvr.XR.Management.csproj.AssemblyReference.cache
+C:\Projects\CSharp\RoR2VRMod\Uuvr.XR.Management\obj\modern-mono\Uuvr.XR.Management.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projects\CSharp\RoR2VRMod\Uuvr.XR.Management\obj\modern-mono\Uuvr.XR.Management.csproj.CoreCompileInputs.cache
+C:\Projects\CSharp\RoR2VRMod\Uuvr.XR.Management\obj\modern-mono\Uuvr.XR.Management.dll

@@ -1,0 +1,4 @@
+C:\Projects\CSharp\RoR2VRMod\Uuvr.Patcher\obj\modern-mono\Uuvr.Patcher.csproj.AssemblyReference.cache
+C:\Projects\CSharp\RoR2VRMod\Uuvr.Patcher\obj\modern-mono\Uuvr.Patcher.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projects\CSharp\RoR2VRMod\Uuvr.Patcher\obj\modern-mono\Uuvr.Patcher.csproj.CoreCompileInputs.cache
+C:\Projects\CSharp\RoR2VRMod\Uuvr.Patcher\obj\modern-mono\Uuvr.Patcher.dll

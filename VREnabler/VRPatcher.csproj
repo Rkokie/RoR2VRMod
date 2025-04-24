@@ -57,7 +57,7 @@
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <!--<Exec Command="copy &quot;$(TargetPath)&quot; &quot;C:\Users\olipo\AppData\Roaming\r2modmanPlus-local\RiskOfRain2\profiles\Default\BepInEx\patchers\DrBibop-VRMod\$(TargetFileName)&quot;" />-->
-    <Exec Command="copy &quot;$(TargetPath)&quot; &quot;C:\Users\kokro\AppData\Roaming\Thunderstore Mod Manager\DataFolder\RiskOfRain2\profiles\VR Only\BepInEx\patchers\DrBibop-VRMod\$(TargetFileName)&quot;" />
+    <Exec Command="copy &quot;$(TargetPath)&quot; &quot;C:\Users\RogerKok\AppData\Roaming\Thunderstore Mod Manager\DataFolder\RiskOfRain2\profiles\VR Only\BepInEx\patchers\DrBibop-VRMod\$(TargetFileName)&quot;" />
     
   </Target>
 

@@ -9,24 +9,60 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VRPatcher", "VREnabler\VRPa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VRAPI", "VRAPI\VRAPI.csproj", "{8201132B-5A60-4921-926A-A95058C038F9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uuvr", "Uuvr\Uuvr.csproj", "{6D501588-4850-4E60-A800-A42E3DFC5FA7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uuvr.Patcher", "Uuvr.Patcher\Uuvr.Patcher.csproj", "{CA2290B7-8B85-492C-8CAE-5EDB70A8E522}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uuvr.SteamVR", "Uuvr.SteamVR\Uuvr.SteamVR.csproj", "{B1E1A466-DD57-4DE1-BF5C-FE04437E0607}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uuvr.XR.Management", "Uuvr.XR.Management\Uuvr.XR.Management.csproj", "{A9577B26-594B-4C13-8FF2-1BD4F9A1009E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uuvr.XR.OpenVR", "Uuvr.XR.OpenVR\Uuvr.XR.OpenVR.csproj", "{A7A87993-03F6-4A44-9D5A-EFAE8CAC19BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uuvr.XR.OpenXR", "Uuvr.XR.OpenXR\Uuvr.XR.OpenXR.csproj", "{1D385B1E-A1A2-4AC3-98AC-7EA8882FAE62}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5D779ADC-2D93-41D6-8465-87B5AD985AFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5D779ADC-2D93-41D6-8465-87B5AD985AFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D779ADC-2D93-41D6-8465-87B5AD985AFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D779ADC-2D93-41D6-8465-87B5AD985AFB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{885EF435-C0FE-405A-B37A-D0D037AE8E9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{885EF435-C0FE-405A-B37A-D0D037AE8E9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D779ADC-2D93-41D6-8465-87B5AD985AFB}.Debug|Any CPU.ActiveCfg = Release|Any CPU
+		{5D779ADC-2D93-41D6-8465-87B5AD985AFB}.Debug|Any CPU.Build.0 = Release|Any CPU
 		{885EF435-C0FE-405A-B37A-D0D037AE8E9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{885EF435-C0FE-405A-B37A-D0D037AE8E9B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8201132B-5A60-4921-926A-A95058C038F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8201132B-5A60-4921-926A-A95058C038F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{885EF435-C0FE-405A-B37A-D0D037AE8E9B}.Debug|Any CPU.ActiveCfg = Release|Any CPU
+		{885EF435-C0FE-405A-B37A-D0D037AE8E9B}.Debug|Any CPU.Build.0 = Release|Any CPU
 		{8201132B-5A60-4921-926A-A95058C038F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8201132B-5A60-4921-926A-A95058C038F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8201132B-5A60-4921-926A-A95058C038F9}.Debug|Any CPU.ActiveCfg = Release|Any CPU
+		{8201132B-5A60-4921-926A-A95058C038F9}.Debug|Any CPU.Build.0 = Release|Any CPU
+		{6D501588-4850-4E60-A800-A42E3DFC5FA7}.Release|Any CPU.ActiveCfg = legacy-il2cpp|Any CPU
+		{6D501588-4850-4E60-A800-A42E3DFC5FA7}.Release|Any CPU.Build.0 = legacy-il2cpp|Any CPU
+		{6D501588-4850-4E60-A800-A42E3DFC5FA7}.Debug|Any CPU.ActiveCfg = modern-mono|Any CPU
+		{6D501588-4850-4E60-A800-A42E3DFC5FA7}.Debug|Any CPU.Build.0 = modern-mono|Any CPU
+		{CA2290B7-8B85-492C-8CAE-5EDB70A8E522}.Release|Any CPU.ActiveCfg = legacy-il2cpp|Any CPU
+		{CA2290B7-8B85-492C-8CAE-5EDB70A8E522}.Release|Any CPU.Build.0 = legacy-il2cpp|Any CPU
+		{CA2290B7-8B85-492C-8CAE-5EDB70A8E522}.Debug|Any CPU.ActiveCfg = modern-mono|Any CPU
+		{CA2290B7-8B85-492C-8CAE-5EDB70A8E522}.Debug|Any CPU.Build.0 = modern-mono|Any CPU
+		{B1E1A466-DD57-4DE1-BF5C-FE04437E0607}.Release|Any CPU.ActiveCfg = legacy-il2cpp|Any CPU
+		{B1E1A466-DD57-4DE1-BF5C-FE04437E0607}.Release|Any CPU.Build.0 = legacy-il2cpp|Any CPU
+		{B1E1A466-DD57-4DE1-BF5C-FE04437E0607}.Debug|Any CPU.ActiveCfg = modern-mono|Any CPU
+		{B1E1A466-DD57-4DE1-BF5C-FE04437E0607}.Debug|Any CPU.Build.0 = modern-mono|Any CPU
+		{A9577B26-594B-4C13-8FF2-1BD4F9A1009E}.Release|Any CPU.ActiveCfg = legacy-il2cpp|Any CPU
+		{A9577B26-594B-4C13-8FF2-1BD4F9A1009E}.Release|Any CPU.Build.0 = legacy-il2cpp|Any CPU
+		{A9577B26-594B-4C13-8FF2-1BD4F9A1009E}.Debug|Any CPU.ActiveCfg = modern-mono|Any CPU
+		{A9577B26-594B-4C13-8FF2-1BD4F9A1009E}.Debug|Any CPU.Build.0 = modern-mono|Any CPU
+		{A7A87993-03F6-4A44-9D5A-EFAE8CAC19BB}.Release|Any CPU.ActiveCfg = legacy-il2cpp|Any CPU
+		{A7A87993-03F6-4A44-9D5A-EFAE8CAC19BB}.Release|Any CPU.Build.0 = legacy-il2cpp|Any CPU
+		{A7A87993-03F6-4A44-9D5A-EFAE8CAC19BB}.Debug|Any CPU.ActiveCfg = modern-mono|Any CPU
+		{A7A87993-03F6-4A44-9D5A-EFAE8CAC19BB}.Debug|Any CPU.Build.0 = modern-mono|Any CPU
+		{1D385B1E-A1A2-4AC3-98AC-7EA8882FAE62}.Release|Any CPU.ActiveCfg = legacy-il2cpp|Any CPU
+		{1D385B1E-A1A2-4AC3-98AC-7EA8882FAE62}.Release|Any CPU.Build.0 = legacy-il2cpp|Any CPU
+		{1D385B1E-A1A2-4AC3-98AC-7EA8882FAE62}.Debug|Any CPU.ActiveCfg = modern-mono|Any CPU
+		{1D385B1E-A1A2-4AC3-98AC-7EA8882FAE62}.Debug|Any CPU.Build.0 = modern-mono|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
